@@ -10,18 +10,30 @@ const pool = pgp({
 });
 
 const getTodoDb = async (): Promise<{id:string, newitem:string}[]>  => {
-    const todos =  await pool.query("SELECT * from todo"); 
-    return todos;  
+    try {
+        const todos =  await pool.query("SELECT * from todo"); 
+        return todos;  
+    } catch (error) {
+        return error.message 
+    }
 }
 
 
 const addTodoDb = async (newItem): Promise<{id:string, newitem:string}[]> => {
-    const todo = await pool.query(`INSERT INTO todo (newItem) VALUES ($1) RETURNING id, newItem`, [newItem])
-    return todo
+    try {
+        const todo = await pool.query(`INSERT INTO todo (newItem) VALUES ($1) RETURNING id, newItem`, [newItem])
+        return todo
+    } catch (error) {
+        return error.message 
+    }
 }   
 
 const clearTodoDb = async (req,res): Promise <void> => {
-    await pool.query(`DELETE FROM todo`) 
+    try {
+        await pool.query(`DELETE FROM todo`) 
+    } catch (error) {
+        return error.message 
+    }
 }
 
 module.exports = {

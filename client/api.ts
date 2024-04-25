@@ -3,16 +3,28 @@ import axios from "axios"
 const baseUrl:string = "http://localhost:4000/api/v1/todo"
 
 const getTodos = async () :Promise<any> => {
-    const response = await axios.get(baseUrl)
-    return response.data.message 
+    try {
+        const response = await axios.get(baseUrl)
+        return response.data.message 
+    } catch (error:any) {
+        return error.message
+    }
 }
 
 const addTodo = async (newItemEntry: string) : Promise <void> => {
-    await axios.post(baseUrl, {newItem:newItemEntry})
+    try {
+        await axios.post(baseUrl, {newItem:newItemEntry})
+    } catch (error:any) {
+        return error.message
+    }
 }
 
 const deleteTodo = async () : Promise <void> => { 
-    await axios.delete(baseUrl) 
+    try {
+        await axios.delete(baseUrl) 
+    } catch (error:any) {
+        return error.message 
+    }
 }
 
 export { getTodos, addTodo, deleteTodo }

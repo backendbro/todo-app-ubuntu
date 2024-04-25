@@ -1,11 +1,11 @@
-require('dotenv').config({path:".env"})
+require('dotenv').config()
 
 const express = require('express')
 const cors = require('cors')
 
 const app = express()
 
-app.use(cors())
+app.use(cors({origin:true, credential:true}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
