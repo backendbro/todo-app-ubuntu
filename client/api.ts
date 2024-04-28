@@ -1,6 +1,9 @@
 import axios from "axios"
 
-const baseUrl:string = "http://localhost:4000/api/v1/todo"
+const baseUrl:string =
+  process.env.NODE_ENV === "production"
+    ? "/api/v1/todo"
+    : "http://localhost:4000/api/v1/todo";
 
 const getTodos = async () :Promise<any> => {
     try {
